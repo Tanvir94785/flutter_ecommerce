@@ -1,0 +1,59 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin" // Must be after Android and Kotlin plugins
+    id "com.google.gms.google-services" // Firebase plugin
+}
+
+android {
+    namespace = "com.example.flutter_ecommerce"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId = "com.example.flutter_ecommerce" // Unique application ID
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+
+        // Enable multiDex if needed
+        multiDexEnabled = true
+    }
+
+    buildTypes {
+        release {
+            // Use debug signing config for now; update for production later
+            signingConfig = signingConfigs.debug
+            // Enable ProGuard/R8 for release builds (optional, adjust rules as needed)
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:33.7.0')
+
+    // Add Firebase Analytics
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.android.support:multidex'
+    // Include other Firebase SDKs if required
+    // implementation 'com.google.firebase:firebase-auth' (for Authentication)
+    // implementation 'com.google.firebase:firebase-firestore' (for Firestore)
+    // implementation 'com.google.firebase:firebase-storage' (for Storage)
+}
